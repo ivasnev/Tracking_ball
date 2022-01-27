@@ -1,3 +1,6 @@
+import math
+
+
 def func(x, k, l):
     return (x + l) / (x * x + x + k)
 
@@ -114,12 +117,88 @@ def RK(k, l):
         k_3 = round(func2(x[i] + h / 2, y[i] + (h * k_2) / 2), 3)
         k_4 = round(func2(x[i] + h, y[i] + (h * k_3)), 3)
         y[i + 1] = round(y[i] + (h / 6) * (k_1 + 2 * k_2 + 2 * k_3 + k_4), 3)
-        print('k1 = {}, k2 = {}, k3 = {}, k4 = {}, y({}) = {},x({}) = {}'.format(k_1, k_2, k_3, k_4,i+1, y[i + 1],i+1, x[i + 1]))
+        print('k1 = {}, k2 = {}, k3 = {}, k4 = {}, y({}) = {},x({}) = {}'.format(k_1, k_2, k_3, k_4, i + 1, y[i + 1],
+                                                                                 i + 1, x[i + 1]))
 
 
-k = 3.6
-l = 2.0
+def func3(x, a, b):
+    return a * x * x * x + a * b * x * x - a * x - b*a
 
-eler(k, l)
-trap2(k, l)
-RK(k, l)
+
+def func3_d(x, a, b):
+    return a * 3 * x * x + a * 2 * b * x - a
+
+
+def SimpIter(a, b):
+    counter = 1
+    a_g = -4.18
+    b_g = -2.267
+    arr = [b_g]
+    while True:
+        print(func3(arr[counter - 1], a, b) * ((b_g - a_g) / (func3(b_g, a, b) - func3(a_g, a, b))))
+        arr.append(
+            arr[counter - 1] - func3(arr[counter - 1], a, b) * ((b_g - a_g) / (func3(b_g, a, b) - func3(a_g, a, b))))
+        t1 = func3(arr[counter] - 10 ** (-3), a, b)
+        t2 = func3(arr[counter] + 10 ** (-3), a, b)
+        print(counter, ") ", arr[counter], " t1) ", t1, " t2) ", t2)
+        if t1 * t2 < 0:
+            break
+        else:
+            counter += 1
+
+
+def Hord(a, b):
+    counter = 1
+    a_g = -2.68
+    b_g = -0.5
+    arr = [a_g]
+    while True:
+        print(func3(arr[counter - 1], a, b),
+              ((b_g - arr[counter - 1]) / (func3(b_g, a, b) - func3(arr[counter - 1], a, b))))
+        arr.append(
+            arr[counter - 1] - func3(arr[counter - 1], a, b) * (
+                    (b_g - arr[counter - 1]) / (func3(b_g, a, b) - func3(arr[counter - 1], a, b))))
+        t1 = func3(arr[counter] - 10 ** (-3), a, b)
+        t2 = func3(arr[counter] + 10 ** (-3), a, b)
+        print(counter, ") ", arr[counter], " t1) ", t1, " t2) ", t2)
+        if t1 * t2 < 0:
+            break
+        else:
+            counter += 1
+
+
+def Kos(a, b):
+    counter = 1
+    a_g = 0.147
+    b_g = 2
+    arr = [b_g]
+    while True:
+        print(func3(arr[counter - 1], a, b), func3_d(arr[counter - 1], a, b))
+        arr.append(
+            arr[counter - 1] - func3(arr[counter - 1], a, b) / func3_d(arr[counter - 1], a, b))
+        t1 = func3(arr[counter] - 10 ** (-3), a, b)
+        t2 = func3(arr[counter] + 10 ** (-3), a, b)
+        print(counter, ") ", arr[counter], " t1) ", t1, " t2) ", t2)
+        if t1 * t2 < 0:
+            break
+        else:
+            counter += 1
+
+# def calc():
+#     x = 1 / math.sqrt(2)
+#     a = 1 / math.sqrt(2)
+#     c = -1 / math.sqrt(2)
+#     b = -1 / math.sqrt(2)
+#     print(6*x*x - 4*c*x - 4*b*x + 2*b*c -4*a*x + 2*a*c + 2*a*b)
+#     print(x*x*x - c*x*x -b*x*x+b*c*x-a*x*x + a*c*x + a*b*x - a*b*c)
+#     print((-1*(6*x*x - 4*c*x - 4*b*x + 2*b*c -4*a*x + 2*a*c + 2*a*b))/(x*x*x - c*x*x -b*x*x+b*c*x-a*x*x + a*c*x + a*b*x - a*b*c))
+#
+# calc()
+
+# a = 1.5
+# b = 3.18
+# SimpIter(a,b)
+# print()
+# Hord(a, b)
+# print()
+# Kos(a, b)

@@ -128,8 +128,8 @@ def main():
 
         if imaging.shape[1] > 600:
             imaging = imutils.resize(imaging, width=600)
-        # cv2.imshow('result', imaging)
-        # cv2.waitKey(1)
+        cv2.imshow('result', imaging)
+        cv2.waitKey(1)
         # status = lets_go_keyboard(x_ball,y_ball,status)
         lets_go_gamepad(x_ball, y_ball, gamepad)
 
