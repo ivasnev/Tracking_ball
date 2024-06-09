@@ -1,12 +1,8 @@
-import cv2
 from cv2 import cv2
 import pyautogui
-import numpy as np
 import time
-
 import cv2
-import numpy as np
-import imutils
+
 
 def make_photo():
     time.sleep(15)
